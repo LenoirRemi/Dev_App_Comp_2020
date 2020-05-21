@@ -26,7 +26,6 @@ dependencies:
   crypto: ^2.1.4
   uuid: ^2.0.4
   flutter_secure_storage: ^3.3.3
-  workmanager: ^0.2.0
 
 
   # The following adds the Cupertino Icons font to your application.

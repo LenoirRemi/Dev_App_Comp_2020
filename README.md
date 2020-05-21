@@ -36,7 +36,7 @@ Si un utilisateur est diagnostiqué porteur d'un virus, il peut volontairement s
 
 ![Signal](gitimage/Signal.png)
 
-Exemple, le téléphone `B` à échangé ces informations :
+Exemple, le téléphone `B` à échangé les informations suivantes :
 
 |  i   |                        ID_temporaire                         |
 | :--: | :----------------------------------------------------------: |
@@ -60,6 +60,43 @@ Ici la deuxième ligne a un résultat correspondant à l'identifiant temporaire,
 
 ## Code
 
-## Conclusion / Analyse
+Le POC est réalisé via *Flutter*, les codes suivant sont donc en langage Dart.
 
-Les informations qui transitent ne sont que celles des personnes infectés qui sont volontaire de partager leur clé.
+Voici les fonctions clés permettant le fonctionnement du protocole.
+
+Génération de l'identifiant unique à l’installation.
+```dart
+String generateUUID() {
+  var uuid = new Uuid();
+  return uuid.v4(options: {'rng': UuidUtil.cryptoRNG});
+}
+```
+Génération d'un identifiant temporaire.
+```dart
+String generateTempID(String i, String hash) {
+  var key = utf8.encode(hash);
+  var bytes = utf8.encode(i);
+  var hmac = new Hmac(sha512, key);
+  return hmac.convert(bytes).toString();
+}
+```
+Comparaison des identifiants temporaires et des clés envoyés par le serveur.
+```dart
+bool compareAllHash() {
+  var risk = false;
+  for (final y in BACKEND_LIST) {
+    for (final z in BLUETOOTH_MEETINGS) {
+      if (z["hash"] == generateTempID(z["i"].toString(), y)) {
+        risk = true;
+      }
+    }
+  }
+  return risk;
+}
+```
+
+## Remarques
+
+ - Les informations qui transitent ne permettent pas d'identifier directement un appareil. De plus ce ne sont que les clés des personnes volontaires qui seront connues par le serveur, celui-ci supprimera les données au bout de 14 jours consécutifs. (temps d'incubation)
+
+- Dans ce POC les communications par *Bluetooth* et les interactions avec le serveur sont émulées, car toutes les fonctionnalités d'anonymisation ainsi que le suivi du protocole sont assurés par l'application.

@@ -4,7 +4,6 @@ import 'package:uuid/uuid_util.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'dart:async';
-import 'package:workmanager/workmanager.dart';
 
 const EMULATED_BLUETOOTH_MEETINGS = [
   {
@@ -131,21 +130,3 @@ Future<bool> deleteAll() async {
   await storage.deleteAll();
   return true;
 }
-
-// background worker
-
-// void callbackDispatcher(){
-//   // Workmanager.registerPeriodicTask(uniqueName, taskName)
-//   Workmanager.executeTask((taskName, inputData) {
-//     print("ABC");
-//     return Future.value(true);
-//   });
-// }
-//
-// void runWorker(){
-//   Workmanager.initialize(
-//     callbackDispatcher,
-//     isInDebugMode: true
-//   );
-//   Workmanager.registerOneOffTask("1", "task1");
-// }
