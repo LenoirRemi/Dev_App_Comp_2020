@@ -97,6 +97,8 @@ bool compareAllHash() {
 
 ## Remarques
 
- - Les informations qui transitent ne permettent pas d'identifier directement un appareil. De plus ce ne sont que les clés des personnes volontaires qui seront connues par le serveur, celui-ci supprimera les données au bout de 14 jours consécutifs. (temps d'incubation)
+- Pour lancer l’application, il faut l'installer via le fichier **POCOVID.apk** sur un smartphone ou un émulateur Android. 
+
+- Les informations qui transitent ne permettent pas d'identifier directement un appareil. De plus ce ne sont que les clés des personnes volontaires qui seront connues par le serveur, celui-ci supprimera les données au bout de 14 jours consécutifs. (temps d'incubation)
 
 - Dans ce POC les communications par *Bluetooth* et les interactions avec le serveur sont émulées, car toutes les fonctionnalités d'anonymisation ainsi que le suivi du protocole sont assurés par l'application.
